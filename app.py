@@ -53,24 +53,33 @@ if reference_file is not None and test_file is not None:
         with col2:
             st.image(image2, caption="Signature to Compare")
 
+      
         if st.button("Compare Signatures", type="primary"):
             start = time.perf_counter()
             score = compare_images(image1, image2)
             elapsed = time.perf_counter() - start
+
             m1, m2 = st.columns(2)
             m1.metric("Pixel Similarity", f"{score:.2f}%")
             m2.metric("Comparison Time", f"{elapsed:.6f} seconds")
+
             st.progress(int(round(score)))
-           st.subheader("Signature Verification Result")
 
-THRESHOLD = 80.0
+            st.subheader("Signature Verification Result")
 
-if score >= THRESHOLD:
-    st.success("HIGH SIMILARITY MATCH")
-    st.write(f"Pixel Similarity: {score:.2f}%")
-else:
-    st.error("LOW SIMILARITY MATCH")
-    st.write(f"Pixel Similarity: {score:.2f}%")
+            THRESHOLD = 80.0
+
+            if score >= THRESHOLD:
+                st.success("HIGH SIMILARITY MATCH")
+                st.write(f"Pixel Similarity: {score:.2f}%")
+            else:
+                st.error("LOW SIMILARITY MATCH")
+                st.write(f"Pixel Similarity: {score:.2f}%")
+
+            st.caption(
+                "Pixel similarity is not proof of signature authenticity."
+            )
+
 
 st.caption(
     "Pixel similarity is not proof of signature authenticity."
