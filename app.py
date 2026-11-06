@@ -61,10 +61,20 @@ if reference_file is not None and test_file is not None:
             m1.metric("Pixel Similarity", f"{score:.2f}%")
             m2.metric("Comparison Time", f"{elapsed:.6f} seconds")
             st.progress(int(round(score)))
-            st.info(
-                "Similarity is not verification accuracy. This score alone "
-                "cannot determine whether a signature is genuine or forged."
-            )
+           st.subheader("Signature Verification Result")
+
+THRESHOLD = 80.0
+
+if score >= THRESHOLD:
+    st.success("HIGH SIMILARITY MATCH")
+    st.write(f"Pixel Similarity: {score:.2f}%")
+else:
+    st.error("LOW SIMILARITY MATCH")
+    st.write(f"Pixel Similarity: {score:.2f}%")
+
+st.caption(
+    "Pixel similarity is not proof of signature authenticity."
+)
     except Exception as error:
         st.error(f"Could not process the uploaded images: {error}")
 
