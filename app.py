@@ -167,7 +167,6 @@ fig.tight_layout()
 st.pyplot(fig)
 plt.close(fig)
 import streamlit as st
-
 st.subheader("Signature Verification Result")
 
 # Similarity score from your Siamese model
