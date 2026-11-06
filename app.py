@@ -166,3 +166,22 @@ ax.bar_label(bars, fmt="%.2f%%")
 fig.tight_layout()
 st.pyplot(fig)
 plt.close(fig)
+import streamlit as st
+
+st.subheader("Signature Verification Result")
+
+# Similarity score from your Siamese model
+similarity_score = 0.85
+
+# Replace this with the threshold selected
+# using your validation dataset
+THRESHOLD = 0.80
+
+st.metric("Similarity Score", f"{similarity_score:.2f}")
+
+if similarity_score >= THRESHOLD:
+    st.success("GENUINE SIGNATURE")
+    st.write("The signatures are classified as similar.")
+else:
+    st.error("FORGED SIGNATURE")
+    st.write("The signatures are classified as different.")
